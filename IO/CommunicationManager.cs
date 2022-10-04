@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -19,6 +19,20 @@ namespace EmployeeRegister_K63_2022.IO
             {
                 var instance = (ICommand)Activator.CreateInstance(commandType);
                 commands[instance.Label] = instance;
+            }
+
+            while (true)
+            {
+                Console.WriteLine("You can 'save', 'load', 'exit', 'add employee', 'delete employee' & 'list employees' ");
+                Console.Write("#");
+
+                var command = Console.ReadLine();
+                if (!commands.ContainsKey(command))
+                {
+                    Console.WriteLine($"Command {command} is not supported!");
+                    continue;
+                }
+                commands[command].Execute();
             }
         }
     }
